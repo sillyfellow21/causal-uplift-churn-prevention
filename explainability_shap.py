@@ -137,8 +137,11 @@ print(f"   Uplift Score: {sleeping_dog_uplift:+.4f}")
 print(f"   P(control): {p_control[sleeping_dog_idx]:.4f}")
 print(f"   P(treatment): {p_treated[sleeping_dog_idx]:.4f}")
 
-# Waterfall plots for individual explanations
-fig, axes = plt.subplots(1, 2, figsize=(16, 6))
+# Waterfall plots for individual explanations - larger and more readable
+fig, axes = plt.subplots(1, 2, figsize=(20, 10))
+
+# Increase font sizes globally for this plot
+plt.rcParams.update({'font.size': 12})
 
 # Persuadable user explanation
 plt.sca(axes[0])
@@ -150,10 +153,11 @@ shap.waterfall_plot(
         feature_names=feature_names
     ),
     show=False,
-    max_display=10
+    max_display=12
 )
-axes[0].set_title(f'Persuadable User\nUplift: {most_persuadable_uplift:+.4f}', 
-                  fontsize=12, fontweight='bold')
+axes[0].set_title(f'Persuadable User (High Uplift)\nUplift Score: {most_persuadable_uplift:+.4f}', 
+                  fontsize=16, fontweight='bold', pad=20)
+axes[0].tick_params(axis='both', which='major', labelsize=11)
 
 # Sleeping dog explanation
 plt.sca(axes[1])
@@ -165,15 +169,19 @@ shap.waterfall_plot(
         feature_names=feature_names
     ),
     show=False,
-    max_display=10
+    max_display=12
 )
-axes[1].set_title(f'Sleeping Dog\nUplift: {sleeping_dog_uplift:+.4f}', 
-                  fontsize=12, fontweight='bold')
+axes[1].set_title(f'Sleeping Dog (Negative Uplift)\nUplift Score: {sleeping_dog_uplift:+.4f}', 
+                  fontsize=16, fontweight='bold', pad=20)
+axes[1].tick_params(axis='both', which='major', labelsize=11)
 
-plt.tight_layout()
+plt.tight_layout(pad=3.0)
 plt.savefig('shap_individual_explanations.png', dpi=300, bbox_inches='tight')
 print("✅ Saved: shap_individual_explanations.png")
 plt.close()
+
+# Reset font size to default
+plt.rcParams.update({'font.size': 10})
 
 # ==================== 6. FEATURE INTERACTIONS ====================
 print("\n" + "="*80)
