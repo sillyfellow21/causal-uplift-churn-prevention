@@ -15,21 +15,31 @@ try:
     df = pd.read_csv('hillstrom.csv')
     print(f"✅ Dataset loaded: {len(df):,} records")
 except FileNotFoundError:
-    print("⚠️  Dataset not found. Downloading from MineThatData source...")
+    print("⚠️  Dataset not found. Downloading from archive source...")
     
-    # Direct download from Kevin Hillstrom's MineThatData challenge
-    url = "https://blog.minethatdata.com/Kevin_Hillstrom_MineThatData_E-MailAnalytics_DataMiningChallenge_2008.03.20.csv"
+    # Try multiple sources
+    urls = [
+        "http://www.minethatdata.com/Kevin_Hillstrom_MineThatData_E-MailAnalytics_DataMiningChallenge_2008.03.20.csv",
+        "https://raw.githubusercontent.com/knathanieltucker/hillstrom-data/master/hillstrom.csv"
+    ]
     
-    try:
-        print(f"   Downloading from MineThatData (official source)...")
-        response = requests.get(url, timeout=30)
-        response.raise_for_status()
-        
-        df = pd.read_csv(StringIO(response.text))
-        df.to_csv('hillstrom.csv', index=False)
-        print(f"✅ Dataset downloaded and saved: {len(df):,} records")
-    except Exception as e:
-        print(f"❌ Download failed: {str(e)}")
+    downloaded = False
+    for i, url in enumerate(urls, 1):
+        try:
+            print(f"   Attempt {i}/{len(urls)}: {url[:50]}...")
+            response = requests.get(url, timeout=30, verify=False)
+            response.raise_for_status()
+            
+            df = pd.read_csv(StringIO(response.text))
+            df.to_csv('hillstrom.csv', index=False)
+            print(f"✅ Dataset downloaded and saved: {len(df):,} records")
+            downloaded = True
+            break
+        except Exception as e:
+            print(f"   ❌ Failed: {str(e)[:60]}")
+            continue
+    
+    if not downloaded:
         print("\n📋 MANUAL DOWNLOAD INSTRUCTIONS:")
         print("   1. Visit: https://blog.minethatdata.com/2008/03/minethatdata-e-mail-analytics-and-data.html")
         print("   2. Download: Kevin_Hillstrom_MineThatData_E-MailAnalytics_DataMiningChallenge_2008.03.20.csv")
