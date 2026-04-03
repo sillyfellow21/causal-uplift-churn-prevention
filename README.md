@@ -223,7 +223,7 @@ ChurnPrevention/
 ### Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/uplift-modeling-retention.git
+git clone https://github.com/sillyfellow21/causal-uplift-churn-prevention.git
 cd uplift-modeling-retention
 ```
 
