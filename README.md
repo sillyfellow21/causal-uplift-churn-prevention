@@ -6,7 +6,7 @@
 [![SHAP](https://img.shields.io/badge/SHAP-Explainability-red.svg)](https://github.com/slundberg/shap)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-**A production-ready uplift modeling project comparing S-Learner, T-Learner, and X-Learner meta-learners with SHAP explainability—demonstrating causal ML rigor and interpretability critical for FAANG-level machine learning.**
+**A production-ready uplift modeling project comparing S-Learner, T-Learner, and X-Learner meta-learners with SHAP explainability—demonstrating causal ML rigor and interpretability critical for expert level machine learning.**
 
 ---
 
@@ -629,7 +629,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👤 Author
 
-**[Your Name]**  
+**Arjun Saha**  
 Data Scientist | Machine Learning Engineer  
 [LinkedIn](https://linkedin.com/in/yourprofile) | [GitHub](https://github.com/yourusername)
 
